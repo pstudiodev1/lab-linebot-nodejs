@@ -7,7 +7,7 @@ const port = process.env.PORT || 4000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-function reply(reply_token) {
+function reply(reply_token, msg) {
     let headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer {o34/mccX3IEkCbi+HtubJTIAEHOR7iT7uptpbU/huWMWS86rpydlbnm9nLmxUBoJwebLI1xW3x5xJwbCw42bqbaS5hTbtg2fl24I+DBkK3KJZtcHOY3jH/Rj8xyRhpfEpJcV6lmmaC9+nFEE4X6o7gdB04t89/1O/w1cDnyilFU=}'
