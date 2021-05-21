@@ -30,11 +30,17 @@ function reply(reply_token, msg) {
     // }, (err, res, body) => {
     //     console.log('status = ' + res.statusCode);
     // });
+
+    r = msg;
+    if(msg === 'how much') {
+        r = '10,000 Bath only.';
+    }
+
     let body = JSON.stringify({
         replyToken: reply_token,
         messages: [{
             type: 'text',
-            text: msg
+            text: r
         }]
     })
     request.post({
