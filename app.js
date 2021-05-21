@@ -1,12 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-const AIMLParser = require('aimlparser');
+// const AIMLParser = require('aimlparser');
+// AIMLInterpreter = require('AIMLInterpreter');
+AIMLUnicode = require('AIMLUnicode');
+
 
 const app = express();
 const port = process.env.PORT || 4000;
-const aimlParser = new AIMLParser({ name:'HelloBot' });
-aimlParser.load(['./aiml.xml'])
+
+// const aimlInterpreter = new AIMLInterpreter({ name:'HelloBot' });
+const aimlUnicode = new AIMLUnicode({name:'AIMLUnicode', age:'21'});
+
+// aimlParser.load(['./aiml.xml']);
+// aimlInterpreter.loadAIMLFilesIntoArray(['./aiml.xml']);
+aimlUnicode.loadAIMlFile(['./aiml.xml']);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -41,12 +49,27 @@ app.post('/webhook', (req, res) => {
     let reply_token = req.body.events[0].replyToken;
     let msg = req.body.events[0].message.text
     // Process message.
-    aimlParser.getResult(msg, (answer, wildCardArray, input) => {
-        reply(reply_token, answer)
-    })
+    // aimlParser.getResult(msg, (answer, wildCardArray, input) => {
+    //     reply(reply_token, answer)
+    // });
+    aimlUnicode.findAnswer(msg, (answer, wildCardArray, input) => {
+        console.log(answer + ' | ' + wildCardArray + ' | ' + input);
+        reply(reply_token, answer);
+    });
     // Reply.
     reply(reply_token, msg)
     res.sendStatus(200);
+});
+
+//
+// Test
+//
+app.get('/webhook', (req, res) => {
+    console.log('GET ==> /webhook');
+    aimlUnicode.findAnswer("ก", (answer, wildCardArray, input) => {
+        console.log(answer + ' | ' + wildCardArray + ' | ' + input);
+        // reply(reply_token, answer);
+    });
 });
 
 //
