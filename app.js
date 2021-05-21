@@ -68,7 +68,7 @@ app.get('/webhook', (req, res) => {
     console.log('GET ==> /webhook');
     aimlUnicode.findAnswer("ก", (answer, wildCardArray, input) => {
         console.log(answer + ' | ' + wildCardArray + ' | ' + input);
-        // reply(reply_token, answer);
+        reply(reply_token, answer);
     });
 });
 
