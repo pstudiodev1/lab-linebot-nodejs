@@ -53,6 +53,7 @@ app.post('/webhook', (req, res) => {
     // reply(reply_token);
     let reply_token = req.body.events[0].replyToken
     let msg = req.body.events[0].message.text
+    console.log(eq.body.events[0].message);
     reply(reply_token, msg)
     res.sendStatus(200);
 });
